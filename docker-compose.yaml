@@ -1,0 +1,23 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:3.2
+    restart: always
+
+  logger:
+    image: logger:latest
+    restart: always
+    environment:
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      MONGO_DB_NAME: logger
+
+  sinatra:
+    image: sinatra-auth:latest
+    restart: always
+    environment:
+      APP_PORT: 5001
+      AUTH_TOKEN_LIFETIME: 1000000000
+      SECRET_KEY: jsn34l5jkj;2n1ldj2hi;43n34ioh
+      MONGO_HOST_PORT: mongo:27017
+      MONGO_DB_NAME: logger
